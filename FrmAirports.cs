@@ -29,7 +29,8 @@ namespace Assignment
             try
             {
                 string mySQL = $@"SELECT ID, Country, City, Airport_Name
-                        FROM Airport";
+                        FROM Airport 
+                        Where logicDelete = 'False'";
 
                 conn.Open();
                 SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(mySQL, conn);
@@ -105,6 +106,7 @@ namespace Assignment
                     conn.Close();
 
                     MessageBox.Show("Airport added!");
+                    SelectAirports();
                 }
                 catch
                 {

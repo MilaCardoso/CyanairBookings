@@ -36,7 +36,7 @@ namespace Assignment
         {
             try
             {
-                string mySQL = $@"SELECT Country
+                string mySQL = $@"SELECT Id, Country
                         FROM 
                      Airport
                     ORDER BY Country";
@@ -52,12 +52,12 @@ namespace Assignment
                 SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(mySQL, conn);
                 dataAdapter.Fill(dataSet, "Airport");
                 comboBoxFrom.DisplayMember = "Country";
-                comboBoxFrom.ValueMember = "id";
-                comboBoxFrom.DataSource = dataSet.Tables["Airport"];
+                comboBoxFrom.ValueMember = "Id";
+                comboBoxFrom.DataSource = dataSet.Tables["Airport"].Copy();
 
                 comboBoxTo.DisplayMember = "Country";
-                comboBoxTo.ValueMember = "id";
-                comboBoxTo.DataSource = dataSet.Tables["Airport"];
+                comboBoxTo.ValueMember = "Id";
+                comboBoxTo.DataSource = dataSet.Tables["Airport"].Copy();
                 conn.Close();
             }
             catch
@@ -115,14 +115,19 @@ namespace Assignment
         {
             /*If there are tickets - message Ok and next page
               if not message with alert and pls chose another date */
+            if (comboBoxFrom.SelectedValue.ToString() == comboBoxTo.SelectedValue.ToString())
+            {
+                MessageBox.Show("Departure and Destination airports cannot be the same");
+            } else
+            {
+                FrmCustomerDetails formCustomer = new FrmCustomerDetails();
 
-            FrmCustomerDetails formCustomer = new FrmCustomerDetails();
+                formCustomer.conn = conn;
 
-            formCustomer.conn = conn;
+                formCustomer.Show();
 
-            formCustomer.Show();
-
-            this.Enabled = false;
+                this.Enabled = false;
+            }
         }
 
         private void buttonBookings_Click(object sender, EventArgs e)
