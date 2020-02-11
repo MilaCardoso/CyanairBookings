@@ -14,17 +14,22 @@ namespace Assignment
     public partial class FrmBooking : Form
     {
         public SQLiteConnection conn;
-        private DataTable dataTable;
-        private string mySQLCondition = "";
+        private bool isAdministrator;
 
-        public FrmBooking()
+        public FrmBooking(bool isAdmin)
         {
+            this.isAdministrator = isAdmin;
             InitializeComponent();
         }
 
         private void FrmBooking_Load(object sender, EventArgs e)
         {
             ComboBoxFrom();
+            if (!isAdministrator)
+            {
+                buttonAirports.Visible = false;
+                buttonBookings.Visible = false;
+            }
         }
 
         private void ComboBoxFrom()
@@ -34,8 +39,7 @@ namespace Assignment
                 string mySQL = $@"SELECT Country
                         FROM 
                      Airport
-                    ORDER BY   Country";
-
+                    ORDER BY Country";
                 /*conn.Open();
                 SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(mySQL, conn);
                 dataTable = new DataTable();
@@ -43,23 +47,18 @@ namespace Assignment
                 dataAdapter.Dispose();
                 conn.Close();*/
 
-
                 conn.Open();
                 DataSet dataSet = new DataSet();
                 SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(mySQL, conn);
                 dataAdapter.Fill(dataSet, "Airport");
                 comboBoxFrom.DisplayMember = "Country";
-                comboBoxFrom.ValueMember = "Country";
+                comboBoxFrom.ValueMember = "id";
                 comboBoxFrom.DataSource = dataSet.Tables["Airport"];
 
-                /*string query = "select FleetName, FleetID from fleets";
-                SqlDataAdapter da = new SqlDataAdapter(query, conn);
-                conn.Open();
-                DataSet ds = new DataSet();
-                da.Fill(ds, "Fleet");
-                cmbTripName.DisplayMember = "FleetName";
-                cmbTripName.ValueMember = "FleetID";
-                cmbTripName.DataSource = ds.Tables["Fleet"];*/
+                comboBoxTo.DisplayMember = "Country";
+                comboBoxTo.ValueMember = "id";
+                comboBoxTo.DataSource = dataSet.Tables["Airport"];
+                conn.Close();
             }
             catch
             {
@@ -136,6 +135,18 @@ namespace Assignment
 
             this.Enabled = false;
         }
+
+        private void buttonAirports_Click(object sender, EventArgs e)
+        {
+            FrmAirports formAirports = new FrmAirports();
+
+            formAirports.conn = conn;
+
+            formAirports.Show();
+
+            this.Enabled = false;
+        }
+
 
         /*public FrmBooking()
         {

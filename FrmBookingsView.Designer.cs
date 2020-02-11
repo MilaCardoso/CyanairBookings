@@ -35,17 +35,20 @@
             // dataGridViewBookings
             // 
             this.dataGridViewBookings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewBookings.Location = new System.Drawing.Point(-8, 0);
+            this.dataGridViewBookings.Location = new System.Drawing.Point(-21, 0);
+            this.dataGridViewBookings.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.dataGridViewBookings.Name = "dataGridViewBookings";
-            this.dataGridViewBookings.Size = new System.Drawing.Size(808, 454);
+            this.dataGridViewBookings.RowHeadersWidth = 102;
+            this.dataGridViewBookings.Size = new System.Drawing.Size(2155, 1083);
             this.dataGridViewBookings.TabIndex = 0;
             // 
             // FrmBookingsView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(2133, 1073);
             this.Controls.Add(this.dataGridViewBookings);
+            this.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.Name = "FrmBookingsView";
             this.Text = "Cyanair - Bookings";
             this.Load += new System.EventHandler(this.FrmBookingsView_Load);

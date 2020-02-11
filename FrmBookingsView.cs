@@ -21,10 +21,10 @@ namespace Assignment
 
         private void FrmBookingsView_Load(object sender, EventArgs e)
         {
-            SelectAirports();
+            SelectBookings();
         }
 
-        private void SelectAirports()
+        private void SelectBookings()
         {
             try
             {

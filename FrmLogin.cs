@@ -20,7 +20,7 @@ namespace Assignment
     {
      
         public SQLiteConnection conn;
-        private DataTable dataTable;
+        private bool isAdmin;
 
         public FrmLogin()
         {
@@ -45,21 +45,13 @@ namespace Assignment
             if (CheckLogIn())
             {
                 
-                FrmBooking formBooking = new FrmBooking();
+                FrmBooking formBooking = new FrmBooking(isAdmin);
 
                 formBooking.conn = conn;
 
                 formBooking.Show();
 
                 this.Enabled = false;
-                    /* so para testar lista de bookings
-                FrmBookingsView formBooking = new FrmBookingsView();
-
-                formBooking.conn = conn;
-
-                formBooking.Show();
-
-                this.Enabled = false;*/
             }
         }
 
@@ -86,6 +78,9 @@ namespace Assignment
                     MessageBox.Show("Oops! \n Username or Password is wrong!");
                     return false;
                 }
+
+                DataRow row = dataSet.Tables[0].Rows[0];
+                isAdmin = row["Access"].ToString().Equals("1");
             }
             catch
             {
